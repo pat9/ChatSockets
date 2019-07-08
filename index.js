@@ -21,4 +21,4 @@ io.on('connection', function(socket){
     });
 });
 
-http.listen('5000', () => console.log('In Port 5000'))
+http.listen(process.env.PORT || 5000, () => console.log('In Port '+process.env.PORT || 5000))
