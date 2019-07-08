@@ -1,15 +1,25 @@
 const app = require('express')();
 const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+const p2p = require('socket.io-p2p-server').Server
+const io = require('socket.io')(http)
+io.use(p2p)
 
 app.get('/', (req, res) =>{
     res.sendFile(__dirname + '/public/index.html');
+})
+app.get('/audio', (req, res) =>{
+    res.sendFile(__dirname + '/public/audio.html');
 })
 
 io.on('connection', function(socket){
     console.log('a user connected');
 
     socket.join(socket.handshake.query.room);
+
+    socket.on('start-stream', function (data) {
+        console.log('Stream started')
+        socket.broadcast.emit('start-stream', data)
+    })
 
     socket.on('chat', (data) =>{
         console.log(data)
