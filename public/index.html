@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Socket.IO</title>
+</head>
+<body>
+    Aqui hay Socket
+    <input type="text" id="mensa"/>
+    <button type="button" id="enviar">Enviar</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var nameRoom = prompt('Escribe el nombre de tu room', 'myroom')
+        var socket = io({query:{ room: nameRoom }});
+
+        var button = document.querySelector('#enviar')
+        var texto = document.getElementById('mensa')
+
+
+        button.addEventListener('click', ()=>{
+            socket.emit('chat',{ mensaje: texto.value, room:nameRoom });
+        })
+
+        socket.on('mensaje', (msg) =>{ alert(msg) })
+
+        
+    </script>
+</body>
+    
+</html>
