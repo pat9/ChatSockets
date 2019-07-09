@@ -13,7 +13,7 @@ p2p.on('start-stream', function () {
 p2p.on('stream', function (stream) {
   var audio = document.querySelector('audio')
   console.log(stream);
-  audio.src = window.URL.createObjectURL(new Blob(stream))
+  audio.srcObject = stream
   audio.play()
 })
 
