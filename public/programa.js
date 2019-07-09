@@ -14,7 +14,18 @@ p2p.on('stream', function (stream) {
   var audio = document.querySelector('audio')
   console.log(stream);
   audio.srcObject = stream
-  audio.play()
+  var playPromise = audio.play();
+
+  if (playPromise !== undefined) {
+    playPromise.then(_ => {
+      // Automatic playback started!
+      // Show playing UI.
+    })
+    .catch(error => {
+      // Auto-play was prevented
+      // Show paused UI.
+    });
+  }
 })
 
 function startStream () {
