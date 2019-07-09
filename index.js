@@ -21,6 +21,7 @@ io.on('connection', function(socket){
 
     socket.on('start-stream', function (data) {
         console.log('Stream started')
+        console.log(data)
         socket.broadcast.emit('start-stream', data)
     })
 
