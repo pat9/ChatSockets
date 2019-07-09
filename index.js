@@ -2,7 +2,10 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const p2p = require('socket.io-p2p-server').Server
 const io = require('socket.io')(http)
+const path = require('path')
 io.use(p2p)
+
+app.use(require('express').static(path.join(__dirname,'/public')))
 
 app.get('/', (req, res) =>{
     res.sendFile(__dirname + '/public/index.html');
