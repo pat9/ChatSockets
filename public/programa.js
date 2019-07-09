@@ -1,6 +1,7 @@
 window.AudioContext = window.AudioContext || window.webkitAudioContext
 
-var socket = io()
+var nameRoom = prompt('Escribe el nombre de tu room', 'myroom')
+var socket = io({query:{ room: nameRoom }});
 var p2p = new P2P(socket)
 var startButton = document.getElementById('start-stream')
 
@@ -11,6 +12,7 @@ p2p.on('start-stream', function () {
 
 p2p.on('stream', function (stream) {
   var audio = document.querySelector('audio')
+  console.log(stream);
   audio.src = window.URL.createObjectURL(stream)
   audio.play()
 })
